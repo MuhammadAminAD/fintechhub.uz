@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Nunito_Sans, Unbounded } from "next/font/google";
+import { Inter, Nunito_Sans, Unbounded } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/shared/NavBar/NavBar";
 

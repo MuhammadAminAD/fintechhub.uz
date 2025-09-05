@@ -3,6 +3,7 @@
 import { imagesData } from "@/constants/constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 import React, { useEffect } from "react";
 
 export default function Images() {
@@ -42,7 +43,7 @@ export default function Images() {
             {imagesData.map((imgArray, index) => (
                 <div className="grid h-full content-between" style={{ gridRow: index === 0 || 2 ? 2 : 1 }} key={index}>
                     {imgArray.map((img, index) =>
-                        <img src={img.src} alt="fintechhub cowork" className="w-full images-img" key={index} />
+                        <Image src={img.src} alt="fintechhub cowork" className="w-full images-img" key={index} />
                     )}
                 </div>
             ))}

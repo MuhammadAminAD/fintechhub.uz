@@ -13,7 +13,6 @@ export default function ShortlyAbout() {
 
     useEffect(() => {
         if (!headingRef.current) return;
-        const timeline = gsap.timeline();
         const splittedHeading = new SplitText(headingRef.current, { type: "words, chars" });
         const shortlyAboutDescription = new SplitText(document.querySelector('.shortly-about-description'), { type: "words, chars" });
 
