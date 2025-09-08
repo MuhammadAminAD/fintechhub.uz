@@ -1,6 +1,7 @@
 import { Inter, Nunito_Sans, Unbounded } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/shared/NavBar/NavBar";
+import Contact from "@/components/Contact";
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -27,8 +28,11 @@ export default function RootLayout({
       <body
         className={`${nunitoSans.variable} ${unbounded.variable} ${inter.variable} antialiased`}
       >
-        <NavBar />
+        <div className="mb-18">
+          <NavBar />
+        </div>
         {children}
+        <Contact />
       </body>
     </html>
   );

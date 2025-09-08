@@ -1,11 +1,14 @@
+"use client"
+
 import React from 'react'
-import Header from './_components/Header'
-import ShortlyAbout from './_components/ShortlyAbout'
-import Images from './_components/Images'
-import Video from './_components/Video'
-import FAQ from './_components/FAQ'
-import Partners from './_components/Partners'
-import Courses from './_components/Courses'
+import Header from '@/components/Header'
+import ShortlyAbout from '@/components/ShortlyAbout'
+import Images from '@/components/Images'
+import Video from '@/components/Video'
+import FAQ from '@/components/FAQ'
+import Partners from '@/components/Partners'
+import Courses from '@/components/Courses'
+import Form from '@/components/Form'
 
 export default function HomePage() {
     return (
@@ -16,6 +19,7 @@ export default function HomePage() {
             <Video />
             <Partners />
             <Courses />
+            <Form />
             <FAQ />
         </>
     )

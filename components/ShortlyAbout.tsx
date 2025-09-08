@@ -1,61 +1,25 @@
 'use client'
 
+import { shortlyAboutGsap } from '@/animations/gsap';
 import { styles } from '@/styles/styles'
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
 import React, { useEffect, useRef } from 'react'
 
-gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export default function ShortlyAbout() {
     const headingRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
-        if (!headingRef.current) return;
-        const splittedHeading = new SplitText(headingRef.current, { type: "words, chars" });
-        const shortlyAboutDescription = new SplitText(document.querySelector('.shortly-about-description'), { type: "words, chars" });
-
-        gsap.from(splittedHeading.chars, {
-            opacity: 0,
-            scale: 0,
-            duration: 0.3,
-            stagger: 0.05,
-            ease: "back.out(1.5)",
-            scrollTrigger: {
-                trigger: headingRef.current,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-            },
-        });
-
-        gsap.from(shortlyAboutDescription.chars, {
-            opacity: 0,
-            scale: 0,
-            y: -10,
-            duration: 0.1,
-            stagger: 0.005,
-            ease: "power4.out",
-            scrollTrigger: {
-                trigger: shortlyAboutDescription.chars,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-            },
-        });
-
-        return () => {
-            splittedHeading.revert();
-            shortlyAboutDescription.revert();
-            ScrollTrigger.killAll();
+        if (headingRef.current) {
+            shortlyAboutGsap(headingRef as React.RefObject<HTMLHeadingElement>);
         }
     }, []);
 
     return (
         <section>
-            <div className={`${styles.container} py-20 flex items-center gap-20`}>
-                <div>
+            <div className={`${styles.container} py-8 lg:py-20 lg:flex max-lg:flex-col items-center gap-20`}>
+                <div className='mb-2.5 lg:mb-0'>
                     <h3 className={`mb-4 ${styles.tagline}`}>Fintechhub</h3>
-                    <h2 ref={headingRef} className={`shortly-about-heading w-[420px] ${styles.title}`}>
+                    <h2 ref={headingRef} className={`shortly-about-heading lg:w-[420px] ${styles.title}`}>
                         IT labaratoriyamiz haqida <span className='text-purple'>qisqacha</span>
                     </h2>
                 </div>

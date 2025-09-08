@@ -54,3 +54,30 @@ export const CoursesData = [
     { id: 4, Icon: IconFt, title: "mobile flutter dasturlash", span: "mobile flutter" },
     { id: 5, Icon: IconSc, title: "bolalar uchun scratch", span: "scratch" },
 ]
+
+import CT4 from "@/assets/icons/call.svg";
+import CT1 from "@/assets/icons/location_on.svg";
+import CT2 from "@/assets/icons/mingcute_youtube-line.svg";
+import CT3 from "@/assets/icons/ri_instagram-line.svg";
+
+
+export const ContactData = [
+    { id: 0, title: "Telefon raqam", linkTitle: "+998 71 203-88-00", link: "tel:+998712038800", Icon: CT4, desc: "09:00 dan 19:00 gacha telefon qilsangiz bo’ladi" },
+    { id: 1, title: "Youtube sahifamiz", linkTitle: "fintechhubuz", link: "https://www.youtube.com/@fintechhubuz", Icon: CT2 },
+    { id: 2, title: "Instagram sahifamiz", linkTitle: "fintechhubuz", link: "https://www.instagram.com/fintechhubuz/", Icon: CT3 },
+    { id: 3, title: "Manzilimiz", linkTitle: "Toshkent shahri Mirobod tumani Afrosiyob 4 ko'chasi", link: "https://maps.app.goo.gl/sQFYVBrB7CB7Mked7", Icon: CT1 },
+]
+
+
+import te from "@/assets/images/Rectangle 5.png"
+
+export const teachersData = [
+    { id: 0, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 1, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 2, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 3, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 4, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 5, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 6, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+    { id: 7, name: "Ibrohimjon Raufjonov", job: "Mobile / Flutter dasturchi.", photo: te },
+]

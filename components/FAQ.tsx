@@ -11,12 +11,12 @@ export default function FAQ() {
     return (
         <>
             <section className="text-white max-w-[768px] mx-auto xl:py-[112px] max-xl:p-8 max-xl:w-full">
-                <h2 className={`${styles.title} text-center text-[28px]`}><span className="text-purple">Ko’p</span> beriladigan savollar</h2>
+                <h2 className={`${styles.title} text-center`}><span className="text-purple">Ko’p</span> beriladigan savollar</h2>
                 <p className="text-[20px] leading-[150%] font-nunito mb-5 xl:mb-20 mt-6 text-center" >Sizni qiziqtirishi mumkin bo’lgan savollarga shu yerdan javob topishingiz mumkin!</p>
 
                 <div>
                     {FAQs.map(({ id, question, answer }) => (
-                        <div key={id} className="border-y border-collapse border-[#FFFFFF33]" data-aos="fade-right">
+                         <div key={id} className="border-y border-collapse border-[#FFFFFF33]" data-aos="fade-right">
                             <button className="flex items-center justify-between w-full py-[21px]" onClick={() => setOpened(opened === id ? null : id)}>
                                 <h4 className="text-[20px] leading-[150%] font-nunito font-bold">{question}</h4>
                                 <img src={chevronIcon} alt="" className=" duration-300" style={{ transform: opened !== id ? `rotate(-180deg)` : "" }} />
@@ -28,7 +28,7 @@ export default function FAQ() {
 
 
                 <div className="max-w-[560px] mx-auto mt-5 xl:mt-20" data-aos="zoom-in">
-                    <h2 className={`${styles.title} text-center mb-4 xl:mb-4.5 text-[28px]`}>
+                    <h2 className={`${styles.title} text-center mb-4 xl:mb-4.5`}>
                         <span className="text-purple">Hali ham </span> <br /> savolingiz <br /> bormi?
                     </h2>
 
