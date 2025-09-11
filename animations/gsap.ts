@@ -1,15 +1,18 @@
 // road map 
 // 10 - 20 headerGsap
 
-
+import { partnersData } from "@/constants/constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-gsap.registerPlugin(SplitText, ScrollTrigger)
 
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+// =================== HEADER ===================
 export const headerGsap = () => {
-    const timeline = gsap.timeline()
     const splittedHeading = new SplitText(".header-heading-text", { type: "words, chars" });
+
+    const timeline = gsap.timeline();
     timeline.from(splittedHeading.chars, {
         y: 50,
         opacity: 0,
@@ -17,13 +20,20 @@ export const headerGsap = () => {
         stagger: 0.05,
         ease: "back.out(1.7)",
     });
-}
 
+    return () => splittedHeading.revert();
+};
+
+// =================== SHORTLY ABOUT ===================
 export const shortlyAboutGsap = (headingRef: React.RefObject<HTMLHeadingElement>) => {
     const mm = gsap.matchMedia();
     if (!headingRef.current) return;
+
     const splittedHeading = new SplitText(headingRef.current, { type: "words, chars" });
-    const shortlyAboutDescription = new SplitText(document.querySelector('.shortly-about-description'), { type: "words, chars" });
+    const shortlyAboutDescription = new SplitText(
+        document.querySelector(".shortly-about-description"),
+        { type: "words, chars" }
+    );
 
     mm.add("(min-width:1024px)", () => {
         gsap.from(splittedHeading.chars, {
@@ -47,24 +57,26 @@ export const shortlyAboutGsap = (headingRef: React.RefObject<HTMLHeadingElement>
             stagger: 0.005,
             ease: "power4.out",
             scrollTrigger: {
-                trigger: shortlyAboutDescription.chars,
+                trigger: shortlyAboutDescription.chars[0],
                 start: "top 80%",
                 toggleActions: "play none none reverse",
             },
         });
-    })
+    });
 
     return () => {
         splittedHeading.revert();
         shortlyAboutDescription.revert();
-        ScrollTrigger.killAll();
-    }
-}
+        mm.revert();
+    };
+};
 
+// =================== IMAGES ===================
 export const imagesGsap = () => {
     const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
         const images = gsap.utils.toArray<HTMLImageElement>(".images-img");
+
         mm.add("(min-width:1024px)", () => {
             gsap.from(images, {
                 y: 400,
@@ -86,21 +98,29 @@ export const imagesGsap = () => {
                 trigger: ".images-section",
                 pin: true,
                 start: "top 10%",
-                end: "+=1400"
-            })
+                end: "+=1400",
+            });
         });
-    })
+    });
 
-    return () => ctx.revert();
+    return () => {
+        ctx.revert();
+        mm.revert();
+    };
+};
 
-}
-
+// =================== VIDEO ===================
 export const videoGsap = () => {
-    const splittedHeading = new SplitText(document.querySelector(".home-video-title"), { type: "words, chars" });
-    const shortlyAboutDescription = new SplitText(document.querySelector('.home-video-description'), { type: "words, chars" });
-    const mm = gsap.matchMedia();
-    mm.add("(min-width:1024px)", () => {
+    const title = document.querySelector(".home-video-title");
+    const desc = document.querySelector(".home-video-description");
 
+    if (!title || !desc) return;
+
+    const splittedHeading = new SplitText(title, { type: "words, chars" });
+    const shortlyAboutDescription = new SplitText(desc, { type: "words, chars" });
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width:1024px)", () => {
         gsap.from(splittedHeading.chars, {
             opacity: 0,
             scale: 0,
@@ -108,7 +128,7 @@ export const videoGsap = () => {
             stagger: 0.05,
             ease: "back.out(1.5)",
             scrollTrigger: {
-                trigger: ".home-video-title",
+                trigger: title,
                 start: "top 80%",
                 toggleActions: "play none none reverse",
             },
@@ -122,93 +142,109 @@ export const videoGsap = () => {
             stagger: 0.005,
             ease: "power4.out",
             scrollTrigger: {
-                trigger: shortlyAboutDescription.chars,
+                trigger: shortlyAboutDescription.chars[0],
                 start: "top 80%",
                 toggleActions: "play none none reverse",
             },
         });
-    })
+    });
+
     return () => {
         splittedHeading.revert();
         shortlyAboutDescription.revert();
-        ScrollTrigger.killAll();
-    }
-}
+        mm.revert();
+    };
+};
 
+// =================== PARTNERS ===================
 export const partnersGsap = () => {
     const mm = gsap.matchMedia();
+    const wrapper = document.querySelector(".home-partners-wraper");
 
-    const wraper = document.querySelector(".home-partners-wraper")
     mm.add("(min-width:1024px)", () => {
-        if (wraper) {
-            const wraperWidth = wraper.clientWidth;
+        if (wrapper) {
+            const totalWidth = Array.from(wrapper.children).reduce(
+                (sum, el) => sum + (el as HTMLElement).offsetWidth + 80,
+                0
+            );
+
+            // Pin section
             gsap.to(".section-partners", {
                 scrollTrigger: {
                     trigger: ".section-partners",
                     start: "center center",
-                    end: `+=${wraperWidth}`,
+                    end: `+=${totalWidth}`,
                     pin: true,
-                }
-            })
+                    scrub: false,
+                },
+            });
 
+            // Horizontal scroll
             gsap.to(".home-partners-wraper", {
-                x: wraperWidth * -1,
-                delay: 0.5,
-                stagger: 700,
+                x: -totalWidth + window.innerWidth,
+                ease: "none",
                 scrollTrigger: {
                     trigger: ".section-partners",
                     start: "center center",
-                    end: `+=${wraperWidth}`,
-                    toggleActions: "play none none reverse",
+                    end: `+=${totalWidth}`,
                     scrub: true,
-                }
-            })
+                },
+            });
         }
-    })
-}
+    });
 
+    return () => mm.revert();
+};
+
+// =================== COURSES ===================
 export const coursesGsap = () => {
     const texts = document.querySelectorAll(".animated-text");
     const mm = gsap.matchMedia();
-
     const colors = ["#ff0055", "#00ffcc", "#ffaa00", "#00aaff", "#ff66ff"];
+
     mm.add("(min-width:1024px)", () => {
-        texts.forEach((text, index) => {
-            const split = new SplitText(text, { type: "chars , words" });
+        // Animated text
+        texts.forEach((text) => {
+            const split = new SplitText(text, { type: "chars, words" });
             const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
             split.chars.forEach((char) => {
                 (char as HTMLElement).style.display = "inline-block";
-                (char as HTMLElement).style.whiteSpace = "pre"; // so'zlarni bo'lmaslik uchun
+                (char as HTMLElement).style.whiteSpace = "pre";
             });
 
-            tl.fromTo(split.chars, {
-                y: 10,
-            }, {
-                y: 0,
-                stagger: 0.05,
-                duration: 0.4,
-                repeat: -1,
-                yoyo: true,
-                ease: "back.out(2)"
-            })
+            tl.fromTo(
+                split.chars,
+                { y: 10 },
+                {
+                    y: 0,
+                    stagger: 0.05,
+                    duration: 0.4,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "back.out(2)",
+                }
+            );
         });
 
-        const titleHeight = (document.querySelector(".home-main-title") as HTMLElement | null)?.offsetHeight;
-        const courseHeight = (document.querySelector(".home-main-courses") as HTMLElement | null)?.offsetHeight;
-        console.log(titleHeight + " " + courseHeight)
+        // Pinning the main title
+        const titleHeight = (document.querySelector(".home-main-title") as HTMLElement)?.offsetHeight || 0;
+        const courseHeight = (document.querySelector(".home-main-courses") as HTMLElement)?.offsetHeight || 0;
+
         if (titleHeight && courseHeight) {
             gsap.to(".home-main-title", {
                 scrollTrigger: {
                     trigger: ".home-main-title",
-                    start: "center center ",
+                    start: "center center",
                     end: `+=${courseHeight - titleHeight}`,
                     pin: true,
                     scrub: true,
-                }
-            })
+                },
+            });
         }
 
-        const headingSplit = new SplitText(".home-main-heading", { type: "words , chars" })
+        // Animate heading
+        const headingSplit = new SplitText(".home-main-heading", { type: "words, chars" });
 
         gsap.from(headingSplit.chars, {
             opacity: 0,
@@ -222,5 +258,7 @@ export const coursesGsap = () => {
                 toggleActions: "play none none reverse",
             },
         });
-    })
-}
+    });
+
+    return () => mm.revert();
+};

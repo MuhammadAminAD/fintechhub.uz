@@ -9,6 +9,7 @@ import FAQ from '@/components/FAQ'
 import Partners from '@/components/Partners'
 import Courses from '@/components/Courses'
 import Form from '@/components/Form'
+import Loader from '@/components/Loader'
 
 export default function HomePage() {
     return (
